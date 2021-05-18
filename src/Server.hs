@@ -17,6 +17,9 @@ main = runTCPServer Nothing "3000" talk
           sendAll s msg
           talk s
 
+openSocket :: AddrInfo -> IO Socket
+openSocket addr = socket (addrFamily addr) (addrSocketType addr) (addrProtocol addr)
+
 -- from the "network-run" package.
 runTCPServer :: Maybe HostName -> ServiceName -> (Socket -> IO a) -> IO a
 runTCPServer mhost port server = withSocketsDo $ do
